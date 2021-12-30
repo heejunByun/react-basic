@@ -1,21 +1,67 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-function tick() {
-  const element = (
-    <div>
-      <h1>Clock</h1>
-      <h2>It is {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}. </h2>
-    </div>
-  );
-  ReactDOM.render(element, document.getElementById('root'));
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>
 };
 
-setInterval(tick, 1000);
+function App() {
+  return (
+    <div>
+      <Welcome name="Sara" />
+      <Welcome name="Cahal" />
+      <Welcome name="Edite" />
+    </div>
+  );
+};
+
+function Comment(props) {
+  return (
+    <div className='Comment'>
+      <UserInfo user={props.author} />
+      <div className='Comment-text'>
+        {props.text}
+      </div>
+      <div className='Comment-date'>
+        {/* {formatDate(props.date)} */}
+      </div>
+    </div>
+  );
+}
+
+
+//추출
+function Avatar(props) {
+  return (
+    <img className='Avatar' 
+      src={props.user.avatarUrl}
+      alt={props.user.name}
+    />
+  )
+}
+
+function UserInfo(props) {
+  return (
+    <div className='UserInfo'>
+      <Avatar user={props.user} />
+      <div className='UserInfo-name'>
+        {props.user.name}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+);
+
 
 
 // If you want to start measuring performance in your app, pass a function
