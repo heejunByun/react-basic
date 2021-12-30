@@ -9,6 +9,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload. sss 
           반갑습니다.
+          pull을 시도하세요.
         </p>
         <a
           className="App-link"
