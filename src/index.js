@@ -3,54 +3,33 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-
-class Clock extends React.Component {
-
+class Toggle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {isToggleOn: true};
+
+    // ????? 
+    this.handelClick = this.handelClick.bind(this); 
   }
 
-  //생명주기 메서드
-  componentDidMount() {
-    this.timerID = setInterval(
-      () =>  this.tick()
-      , 1000);
-  };
-
-  //생명주기 메서드  
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    this.setState({
-      date: new Date()
-    })
+  handelClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
   }
 
   render() {
     return (
-      <div>
-        <h1>Hello, Render State world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>      
-    )
+      <button onClick={this.handelClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
   }
 }
 
-function App() {
-  return (
-    <div>
-      <Clock />
-      <Clock />
-      <Clock />
-    </div>
-  )
-}
 
 ReactDOM.render(
-  <App/>,
+  <Toggle />,
   document.getElementById('root')
 );
 
