@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-// Greeting
+// Greeting + Login
 function UserGreeting(props) {
   return <h1>Welcome back!</h1>;
 }
@@ -20,7 +20,6 @@ function Greeting(props) {
   return <GuestGreeting />;
 }
 
-// Login
 function LoginButton(props) {
   return (
     <button onClick={props.onClick}>
@@ -42,6 +41,7 @@ class LoginControl extends React.Component {
     super(props); //?
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.test = {test:"A"};
     this.state = {isLoggedIn: false};
   } 
 
@@ -58,6 +58,7 @@ class LoginControl extends React.Component {
   render() {
     const isLoggedIn = this.state.isLoggedIn;
     let button;
+    console.log("redner test" , this);
 
     if (isLoggedIn) {
       button = <LogoutButton onClick={this.handleLogoutClick} />
@@ -74,9 +75,66 @@ class LoginControl extends React.Component {
   }
 }
 
+//MailBox
+function Mailbox(props) {
+  const unreadMessage = props.unreadMsg;
+  return (
+    <div>
+      <h1>Hello</h1>
+      {unreadMessage.length > 0 &&
+        <h2>
+          You have {unreadMessage.length} unread messages.
+        </h2>
+      }
+    </div>
+  );
+}
+const message = ['React' , 'Re: React', 'Re: Re: React'];
+
+
+//WarningBanner 
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className='warning'>
+      Warning!
+    </div>
+  )
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this); 
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? 'Hide' : 'Show'}
+        </button>
+      </div>
+    )
+  }
+
+};
 
 ReactDOM.render(
-  <LoginControl />,
+  // <LoginControl />,
+  // <Mailbox unreadMsg={message} />,
+  <Page />,
   document.getElementById('root')
 );
 
